@@ -1,0 +1,26 @@
+#!/bin/bash 
+mkdir "./data"
+SIZE=$1
+NUM_RUNS=$2
+TEST=$3
+COUNTER=0
+DATAPATH="./data"
+until [  $COUNTER -gt $NUM_RUNS ]; do
+  FLUIDDIR="$DATAPATH/fluid_flow_$SIZE"
+  FLUIDDIR+="x"
+  FLUIDDIR+="$SIZE"
+  mkdir $FLUIDDIR
+  FLUIDDIR+="/sample_$COUNTER"
+  mkdir $FLUIDDIR
+  V=$((RANDOM%10+1))
+  V=$(echo "0.01 * $V"|bc) 
+  V="0$V"
+  touch "$FLUIDDIR/$V"
+
+  FNAME="$FLUIDDIR/fluid_flow"
+  "./generate_train_data" $SIZE $FNAME $V
+ 
+  # rm "-rf $FLUIDDIR/*.xmf"
+  let COUNTER+=1
+done
+

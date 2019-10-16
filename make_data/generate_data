@@ -1,0 +1,3 @@
+#!/bin/bash
+./make_flow 128 3000
+#./make_car_flow 128 3000
